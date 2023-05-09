@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface Subscriber_dao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(subscriber: Subscriber) :Long // should always return long, list or Array list
 
     @Update
@@ -16,7 +16,7 @@ interface Subscriber_dao {
     suspend fun deleteData(subscriber: Subscriber) // should always return
 
     @Query("DELETE FROM Subscriber_data_table")
-    fun getData(subscriber: Subscriber)
+    fun deleteAllData()
 
     @Query("SELECT * FROM Subscriber_data_table")
     fun getAllSubscribers():LiveData<List<Subscriber>>
